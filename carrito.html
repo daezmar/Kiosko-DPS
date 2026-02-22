@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gasolinera del Bienestar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="kiosk-header">
+        <h1>Su Carrito</h1>
+        <p>Revise su pedido</p>
+    </header>
+
+    <main class="container">
+        <div class="cart-list">
+            
+            <div class="cart-item-row">
+                <div class="item-info">
+                    <h3>Bebida Energética</h3>
+                    <p>Precio U: $2.75</p>
+                </div>
+                <div class="item-controls">
+                    <input type="number" class="item-qty" value="2" min="1">
+                    <span class="item-subtotal">$5.50</span>
+                    <button class="btn-delete"> Eliminar </button>
+                </div>
+            </div>
+
+            <div class="cart-item-row">
+                <div class="item-info">
+                    <h3>Aceite de Motor 1L</h3>
+                    <p>Precio U: $6.00</p>
+                </div>
+                <div class="item-controls">
+                    <input type="number" class="item-qty" value="1" min="1">
+                    <span class="item-subtotal">$6.00</span>
+                    <button class="btn-delete"> Eliminar </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="cart-total-box">
+            <h2>Total General: $11.50</h2>
+        </div>
+    </main>
+
+    <footer class="bottom-nav split-nav">
+        <a href="index.html" class="btn-nav secondary"> Volver al Kiosko </a>
+        <a href="factura.html" class="btn-nav primary"> Proceder al Pago </a>
+    </footer>
+
+</body>
+</html>
