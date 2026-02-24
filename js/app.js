@@ -68,7 +68,21 @@ function agregarAlCarrito(idProducto) {
         return;
     }
 
-    // Aquí se podría agregar el producto al carrito (aún no implementado)
+    //Restar el stock
+    productoSeleccionado.stock -=cantidadDeseada;
+    //Actualiza el número que aparece en la pantalla
+    document.getElementById(`stock-${idProducto}`).textContent = productoSeleccionado.stock;
+    //Agregar carrito
+    carrito.push({
+    id: productoSeleccionado.id,
+    nombre: productoSeleccionado.nombre,
+    precio: productoSeleccionado.precio,
+    cantidad: cantidadDeseada
+});
+
+//Guardar en LocalStorage
+localStorage.setItem("carrito", JSON.stringify(carrito));
+alert("Producto agregado al carrito 🛒");
 
 }
 
