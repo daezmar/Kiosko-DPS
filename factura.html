@@ -6,54 +6,65 @@
     <title>Factura - Gasolinera del Bienestar</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="invoice-bg">
+<body>
 
-    <main class="invoice-container">
-        <div class="receipt">
-            <div class="receipt-header">
-                <h2>Factura de Compra</h2>
-                <p>Gasolinera del Bienestar</p>
-                <p>Fecha: 21/02/2026</p>
-                <p>Nº Ticket: #004582</p>
+    <header class="kiosk-header">
+        <h1>Factura de Compra</h1>
+        <p>Gasolinera del Bienestar</p>
+    </header>
+
+    <main class="container">
+        <div class="caja-factura" id="contenido-factura">
+            <div class="detalles-encabezado-factura">
+                <div>
+                    <strong>Fecha:</strong> <span id="fechaFactura"></span>
+                </div>
+                <div>
+                    <strong>No. Transacción:</strong> <span id="numTransaccion"></span>
+                </div>
             </div>
             
-            <table class="receipt-table">
+            <table class="tabla-factura">
                 <thead>
                     <tr>
-                        <th>Cant</th>
-                        <th>Descripción</th>
-                        <th>Total</th>
+                        <th>Producto</th>
+                        <th class="texto-derecha">Cant.</th>
+                        <th class="texto-derecha">Precio U.</th>
+                        <th class="texto-derecha">Total Línea</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>2</td>
-                        <td>Bebida Energética</td>
-                        <td>$5.50</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Aceite de Motor 1L</td>
-                        <td>$6.00</td>
-                    </tr>
-                </tbody>
+                <tbody id="tablaProductosBody">
+                    </tbody>
             </table>
 
-            <div class="receipt-totals">
-                <div class="row"><span>Subtotal:</span> <span>$11.50</span></div>
-                <div class="row"><span>Impuestos (13%):</span> <span>$1.50</span></div>
-                <div class="row final"><span>Total a Pagar:</span> <span>$13.00</span></div>
+            <div class="area-totales-factura">
+                <table class="tabla-totales">
+                    <tr>
+                        <td>Subtotal:</td>
+                        <td id="montoSubtotal">$0.00</td>
+                    </tr>
+                    <tr>
+                        <td>Tributo IVA (13%):</td>
+                        <td id="montoImpuesto">$0.00</td>
+                    </tr>
+                    <tr class="fila-total-general">
+                        <td>Total a Pagar:</td>
+                        <td id="montoTotalGeneral">$0.00</td>
+                    </tr>
+                </table>
             </div>
+        </div>
 
-            <div class="receipt-footer">
-                <p>¡Gracias por su preferencia y buen viaje!</p>
-            </div>
+        <div id="mensaje-vacio" class="mensaje-factura-vacia" style="display: none;">
+            <h2>No hay productos para facturar.</h2>
         </div>
     </main>
 
-    <footer class="bottom-nav">
-        <a href="index.html" class="btn-nav primary">Nueva Compra</a>
+    <footer class="bottom-nav split-nav">
+        <a href="carrito.html" class="btn-nav secondary"> Volver al Carrito </a>
+        <button id="btnFinalizar" class="btn-nav primary"> Finalizar y Seguir Comprando </button>
     </footer>
 
+    <script src="js/app.js"></script>
 </body>
 </html>

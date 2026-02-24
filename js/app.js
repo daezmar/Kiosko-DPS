@@ -103,3 +103,77 @@ document.addEventListener('DOMContentLoaded', () => {
     renderizarCatalogo();
     actualizarContador();
 });
+
+
+// js/factura.js
+
+const TASA_IMPUESTO = 0.13; 
+
+let carritoCompra = JSON.parse(localStorage.getItem("carrito")) || [];
+
+function cargarFactura() {
+    const tablaBody = document.getElementById("tablaProductosBody");
+    const contenidoFactura = document.getElementById("contenido-factura");
+    const mensajeVacio = document.getElementById("mensaje-vacio");
+    const btnFinalizar = document.getElementById("btnFinalizar");
+    
+    // Validar si el carrito está vacío
+    if (carritoCompra.length === 0) {
+        contenidoFactura.style.display = "none";
+        mensajeVacio.style.display = "block";
+        btnFinalizar.disabled = true;
+        btnFinalizar.style.opacity = "0.5";
+        btnFinalizar.style.cursor = "not-allowed";
+        return;
+    }
+
+    document.getElementById("fechaFactura").textContent = new Date().toLocaleDateString();
+    document.getElementById("numTransaccion").textContent = "TX-" + Math.floor(Math.random() * 1000000);
+
+    let subtotalGeneral = 0;
+    tablaBody.innerHTML = "";
+
+    // Construir las filas de la tabla
+    carritoCompra.forEach(producto => {
+        const totalLinea = producto.precio * producto.cantidad;
+        subtotalGeneral += totalLinea;
+
+        const fila = `
+            <tr>
+                <td>${producto.nombre}</td>
+                <td class="texto-derecha">${producto.cantidad}</td>
+                <td class="texto-derecha">$${producto.precio.toFixed(2)}</td>
+                <td class="texto-derecha">$${totalLinea.toFixed(2)}</td>
+            </tr>
+        `;
+        tablaBody.innerHTML += fila;
+    });
+
+    // Calcular impuestos y total final
+    const impuestos = subtotalGeneral * TASA_IMPUESTO;
+    const totalPagar = subtotalGeneral + impuestos;
+
+    // Actualizar el DOM con los nuevos IDs en español
+    document.getElementById("montoSubtotal").textContent = "$" + subtotalGeneral.toFixed(2);
+    document.getElementById("montoImpuesto").textContent = "$" + impuestos.toFixed(2);
+    document.getElementById("montoTotalGeneral").textContent = "$" + totalPagar.toFixed(2);
+}
+
+function finalizarCompra() {
+    if (carritoCompra.length === 0) return;
+
+    if (confirm("¿Confirmar compra y finalizar?")) {
+        localStorage.removeItem("carrito");
+        alert("¡Compra realizada con éxito! Gracias por su preferencia.");
+        window.location.href = "index.html";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    cargarFactura();
+    
+    const btnFinalizar = document.getElementById("btnFinalizar");
+    if (btnFinalizar) {
+        btnFinalizar.addEventListener("click", finalizarCompra);
+    }
+});
