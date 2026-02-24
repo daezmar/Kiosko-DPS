@@ -52,7 +52,6 @@ function mostrarCarrito() {
 }
 
 function eliminarProducto(index) {
-    alert("Boton funciona");
     carrito.splice(index, 1);
     localStorage.setItem("carrito", JSON.stringify(carrito));
     mostrarCarrito();
