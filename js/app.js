@@ -25,6 +25,18 @@ const inventarioKiosco = [
     new Producto(12, "🌭", "Hot Dog Clásico", 15, 2.00)
 ];
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+function actualizarContador() {
+    const contador = document.getElementById("contadorCarrito");
+    if (!contador) return;
+
+    let totalProductos = 0;
+
+    carrito.forEach(producto => {
+        totalProductos += producto.cantidad;
+    });
+
+    contador.textContent = totalProductos;
+}el paso
 // Función para renderizar el catálogo de productos en la página
 function renderizarCatalogo() {
     const grid = document.querySelector('.product-grid');
@@ -82,8 +94,12 @@ function agregarAlCarrito(idProducto) {
 
 //Guardar en LocalStorage
 localStorage.setItem("carrito", JSON.stringify(carrito));
+actualizarContador();
 alert("Producto agregado al carrito 🛒");
 
 }
 
-document.addEventListener('DOMContentLoaded', renderizarCatalogo);
+document.addEventListener('DOMContentLoaded', () => {
+    renderizarCatalogo();
+    actualizarContador();
+});
