@@ -14,37 +14,51 @@
     </header>
 
     <main class="container">
-        <div class="cart-list">
-            
+ <div id="listaCarrito"></div>
+
+<div class="cart-total-box">
+    <h2 id="total"></h2>
+</div>
+
+<script>
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+function mostrarCarrito() {
+    const lista = document.getElementById("listaCarrito");
+    const totalElemento = document.getElementById("total");
+
+    lista.innerHTML = "";
+    let total = 0;
+
+    carrito.forEach((producto, index) => {
+        const subtotal = producto.precio * producto.cantidad;
+        total += subtotal;
+
+        lista.innerHTML += `
             <div class="cart-item-row">
                 <div class="item-info">
-                    <h3>Bebida Energética</h3>
-                    <p>Precio U: $2.75</p>
+                    <h3>${producto.nombre}</h3>
+                    <p>Precio U: $${producto.precio}</p>
                 </div>
                 <div class="item-controls">
-                    <input type="number" class="item-qty" value="2" min="1">
-                    <span class="item-subtotal">$5.50</span>
-                    <button class="btn-delete"> Eliminar </button>
+                    <span class="item-subtotal">$${subtotal.toFixed(2)}</span>
+                    <button onclick="eliminarProducto(${index})" class="btn-delete">Eliminar</button>
                 </div>
             </div>
+        `;
+    });
 
-            <div class="cart-item-row">
-                <div class="item-info">
-                    <h3>Aceite de Motor 1L</h3>
-                    <p>Precio U: $6.00</p>
-                </div>
-                <div class="item-controls">
-                    <input type="number" class="item-qty" value="1" min="1">
-                    <span class="item-subtotal">$6.00</span>
-                    <button class="btn-delete"> Eliminar </button>
-                </div>
-            </div>
+    totalElemento.textContent = "Total General: $" + total.toFixed(2);
+}
 
-        </div>
+function eliminarProducto(index) {
+    carrito.splice(index, 1);
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    mostrarCarrito();
+}
 
-        <div class="cart-total-box">
-            <h2>Total General: $11.50</h2>
-        </div>
+mostrarCarrito();
+</script>
     </main>
 
     <footer class="bottom-nav split-nav">
