@@ -36,7 +36,7 @@ function actualizarContador() {
     });
 
     contador.textContent = totalProductos;
-}el paso
+}
 // Función para renderizar el catálogo de productos en la página
 function renderizarCatalogo() {
     const grid = document.querySelector('.product-grid');
