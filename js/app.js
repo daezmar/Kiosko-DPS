@@ -24,7 +24,7 @@ const inventarioKiosco = [
     new Producto(11, "🥤", "Soda en Lata", 35, 1.00),
     new Producto(12, "🌭", "Hot Dog Clásico", 15, 2.00)
 ];
-
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 // Función para renderizar el catálogo de productos en la página
 function renderizarCatalogo() {
     const grid = document.querySelector('.product-grid');
