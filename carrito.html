@@ -23,6 +23,26 @@
 <script>
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
+// inventario helpers reutilizados
+function cargarInventario() {
+    const datos = localStorage.getItem('inventario');
+    if (!datos) return [];
+    return JSON.parse(datos);
+}
+
+function guardarInventario(inventario) {
+    localStorage.setItem('inventario', JSON.stringify(inventario));
+}
+
+function ajustarStock(productoId, cantidad) {
+    const inv = cargarInventario();
+    const item = inv.find(p => p.id === productoId);
+    if (item) {
+        item.stock += cantidad; // cantidad puede ser negativa
+        guardarInventario(inv);
+    }
+}
+
 function mostrarCarrito() {
     const lista = document.getElementById("listaCarrito");
     const totalElemento = document.getElementById("total");
@@ -38,9 +58,11 @@ function mostrarCarrito() {
             <div class="cart-item-row">
                 <div class="item-info">
                     <h3>${producto.nombre}</h3>
-                    <p>Precio U: $${producto.precio}</p>
+                    <p>Precio U: $${producto.precio.toFixed(2)}</p>
                 </div>
                 <div class="item-controls">
+                    <!-- cantidad editable -->
+                    <input type="number" class="item-qty" value="${producto.cantidad}" min="1" data-index="${index}" onchange="actualizarCantidad(${index}, this.value)">
                     <span class="item-subtotal">$${subtotal.toFixed(2)}</span>
                     <button onclick="eliminarProducto(${index})" class="btn-delete">Eliminar</button>
                 </div>
@@ -52,7 +74,31 @@ function mostrarCarrito() {
 }
 
 function eliminarProducto(index) {
+    // devolver el stock del artículo eliminado
+    const producto = carrito[index];
+    ajustarStock(producto.id, producto.cantidad);
+
     carrito.splice(index, 1);
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    mostrarCarrito();
+}
+
+
+// actualiza la cantidad de un producto en el carrito
+function actualizarCantidad(index, cantidadNueva) {
+    cantidadNueva = parseInt(cantidadNueva);
+    if (isNaN(cantidadNueva) || cantidadNueva < 1) {
+        // no se permiten valores inválidos ni menores a 1
+        mostrarCarrito();
+        return;
+    }
+
+    const anterior = carrito[index].cantidad;
+    const diferencia = cantidadNueva - anterior;
+    // si se aumentó la cantidad restar stock; si se disminuyó devolver stock
+    ajustarStock(carrito[index].id, -diferencia);
+
+    carrito[index].cantidad = cantidadNueva;
     localStorage.setItem("carrito", JSON.stringify(carrito));
     mostrarCarrito();
 }

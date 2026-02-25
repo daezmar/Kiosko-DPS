@@ -478,43 +478,75 @@ body {
 
 .btn-nav.primary { background-color: var(--success-green); color: white; }
 
-/* =========================================
-   Estilos específicos para la Factura (En Español)
-   ========================================= */
+   /*Estilos específicos para la Factura*/
 
 .caja-factura {
-    background-color: var(--bg-card, #2a2a3c);
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid var(--border-color, #444);
-    color: var(--text-light, #f0f0f0);
+    background-color: #fff;
+    color: #333;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    max-width: 800px;
+    margin: 0 auto 40px;
 }
 
 .detalles-encabezado-factura {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #555;
-    padding-bottom: 10px;
-    font-size: 0.9em;
+    margin-bottom: 25px;
+    border-bottom: 2px dashed #ccc;
+    padding-bottom: 12px;
+    font-size: 1em;
 }
 
 .tabla-factura {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
+    font-size: 0.95em;
 }
 
 .tabla-factura th {
     text-align: left;
-    padding: 10px;
-    background-color: #333;
-    border-bottom: 2px solid #555;
+    padding: 12px 10px;
+    background-color: #f1f1f1;
+    color: #333;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.tabla-factura tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
 
 .tabla-factura td {
     padding: 10px;
-    border-bottom: 1px solid #444;
+    border-bottom: 1px solid #ddd;
+}
+
+/* totales dentro de la factura mejor alineados */
+.area-totales-factura {
+    margin-top: 20px;
+}
+
+.tabla-totales td {
+    padding: 8px 12px;
+    text-align: right;
+}
+
+/* estilo de línea total general para destacarlo */
+.fila-total-general td {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--success-green);
+}
+
+/* impresión optimizada */
+@media print {
+    body { background: #fff; color: #000; }
+    .kiosk-header, .bottom-nav { display: none; }
+    .caja-factura { box-shadow: none; margin: 0; width: 100%; }
+    .tabla-factura th { background-color: #eee; }
 }
 
 .texto-derecha {
@@ -548,4 +580,18 @@ body {
     padding: 40px 20px;
     background-color: var(--bg-card, #2a2a3c);
     border-radius: 10px;
+}
+
+/* separadores para el histórico */
+#listaHistorico .caja-factura {
+    margin-bottom: 20px;
+}
+/* ajustes visuales para el botón eliminar del carrito */
+.btn-delete {
+    color: var(--primary-red);
+    transition: color 0.2s;
+}
+
+.btn-delete:hover {
+    color: #ff7979;
 }

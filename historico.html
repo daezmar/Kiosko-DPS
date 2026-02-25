@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico - Gasolinera del Bienestar</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <header class="kiosk-header">
+        <h1>Histórico de Compras</h1>
+        <p>Revisa tus transacciones anteriores</p>
+        <button id="btnClearHistory" class="btn-nav secondary" style="margin-top:10px; max-width:160px;">Limpiar historial</button>
+    </header>
+
+    <main class="container">
+        <div id="listaHistorico"></div>
+    </main>
+
+    <footer class="bottom-nav split-nav">
+        <a href="index.html" class="btn-nav secondary">Inicio</a>
+        <a href="carrito.html" class="btn-nav primary">Ir al Carrito</a>
+    </footer>
+
+    <script>
+        const listaHistorico = document.getElementById('listaHistorico');
+        const historico = JSON.parse(localStorage.getItem('historico')) || [];
+
+        function mostrarHistorico() {
+            if (historico.length === 0) {
+                listaHistorico.innerHTML = '<p>No hay registros de compras.</p>';
+                return;
+            }
+
+            historico.forEach(entry => {
+                const section = document.createElement('div');
+                section.classList.add('caja-factura');
+                let filas = '';
+                entry.items.forEach(p => {
+                    filas += `
+                        <tr>
+                            <td>${p.nombre}</td>
+                            <td class="texto-derecha">${p.cantidad}</td>
+                            <td class="texto-derecha">$${p.precio.toFixed(2)}</td>
+                            <td class="texto-derecha">$${(p.precio * p.cantidad).toFixed(2)}</td>
+                        </tr>
+                    `;
+                });
+
+                section.innerHTML = `
+                    <div class="detalles-encabezado-factura">
+                        <div><strong>Fecha:</strong> ${entry.fecha}</div>
+                        <div><strong>No. Transacción:</strong> ${entry.transaccion}</div>
+                    </div>
+                    <table class="tabla-factura">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th class="texto-derecha">Cant.</th>
+                                <th class="texto-derecha">Precio U.</th>
+                                <th class="texto-derecha">Total Línea</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${filas}
+                        </tbody>
+                    </table>
+                    <div class="area-totales-factura">
+                        <table class="tabla-totales">
+                            <tr><td>Subtotal:</td><td>$${entry.subtotal.toFixed(2)}</td></tr>
+                            <tr><td>IVA (13%):</td><td>$${entry.impuestos.toFixed(2)}</td></tr>
+                            <tr class="fila-total-general"><td>Total:</td><td>$${entry.total.toFixed(2)}</td></tr>
+                        </table>
+                    </div>
+                `;
+
+                listaHistorico.appendChild(section);
+            });
+        }
+
+        document.getElementById('btnClearHistory').addEventListener('click', () => {
+            if (confirm('¿Borrar todo el historial?')) {
+                localStorage.removeItem('historico');
+                listaHistorico.innerHTML = '<p>No hay registros de compras.</p>';
+            }
+        });
+
+        mostrarHistorico();
+    </script>
+</body>
+</html>
