@@ -4,7 +4,7 @@ Proyecto de desarrollo web para la materia de DPS, simulando un carrito de compr
 
 ## 🚀 Entregables del Proyecto
 ✔️ **Enlace del sitio web (En vivo):** [👉 Clic aquí para visitar la Gasolinera del Bienestar](https://daezmar.github.io/Kiosko-DPS/)
-✔️ **Documento proyecto Kiosko Del Bienestar:** [📄 Descargar / Ver Documentación (PDF)](./Documentación proyecto Kiosko Del Bienestar (DPS Desafio 1).pdf)
+✔️ **Documento proyecto Kiosko Del Bienestar:** [📄 Descargar / Ver Documentación (PDF)](./Documentación_proyecto_Kiosko_Del_Bienestar_(DPS_Desafio_1).pdf)
 
 ## 👥 Equipo de Trabajo
 * Jairo Jose Hernandez Abrego HA190640
