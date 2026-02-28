@@ -1,6 +1,6 @@
 # 🛒 Gasolinera del Bienestar - Kiosko de Compras
 
-Proyecto de desarrollo web para la materia de DPS, simulando un carrito de compras interactivo con facturación.
+Desafío para la materia de DPS, simulando un carrito de compras con facturación.
 
 ## 🚀 Entregables del Proyecto
 
